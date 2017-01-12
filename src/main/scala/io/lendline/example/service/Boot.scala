@@ -1,22 +1,29 @@
 package io.lendline.example.service
 
-import akka.actor.{ActorSystem, Props}
-import akka.io.IO
-import spray.can.Http
-import akka.pattern.ask
-import akka.util.Timeout
-import scala.concurrent.duration._
+import akka.actor.ActorSystem
+import akka.http.scaladsl.Http
+import akka.stream.ActorMaterializer
+import org.slf4j.LoggerFactory
+
+import scala.io.StdIn
 
 object Boot {
-  // we need an ActorSystem to host our application in
-  implicit val system = ActorSystem("example-service")
-
-  // create and start our service actor
-  val service = system.actorOf(Props[ExampleServiceActor], "example-service")
-
   def main(args: Array[String]): Unit = {
-    implicit val timeout = Timeout(30.seconds)
+    implicit val system = ActorSystem("my-system")
+    implicit val materializer = ActorMaterializer()
+    // needed for the future flatMap/onComplete in the end
+    implicit val executionContext = system.dispatcher
 
-    IO(Http) ? Http.Bind(service, interface = "::0", port = 8084)
+    val log = LoggerFactory.getLogger("main")
+
+    log.info("ExampleService started")
+
+    val bindingFuture = Http().bindAndHandle(Routes.getRoutes, "localhost", 8080)
+
+    println(s"Server online at http://localhost:8080/\nPress RETURN to stop...")
+    StdIn.readLine() // let it run until user presses return
+    bindingFuture
+      .flatMap(_.unbind()) // trigger unbinding from the port
+      .onComplete(_ => system.terminate()) // and shutdown when done
   }
 }

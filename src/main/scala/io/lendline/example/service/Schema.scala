@@ -1,10 +1,11 @@
 package io.lendline.example.service
 
-object Schema {
+import slick.backend.DatabaseConfig
+import slick.driver.JdbcProfile
+import java.sql.Timestamp
 
-  import java.sql.Timestamp
-
-  import slick.driver.PostgresDriver.api._
+class Schema(dc: DatabaseConfig[JdbcProfile]) {
+  import dc.driver.api._
 
   class ExampleTable(tag: Tag) extends Table[ExampleDataRow](tag, "users") {
     def userId = column[String]("user_id", O.PrimaryKey)

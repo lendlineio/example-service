@@ -4,7 +4,7 @@ import java.sql.Timestamp
 
 import org.joda.time.DateTime
 import org.joda.time.format.ISODateTimeFormat
-import spray.http.{DateTime => SprayDateTime}
+//import spray.http.{DateTime => SprayDateTime}
 
 object Util {
 
@@ -15,7 +15,7 @@ object Util {
   implicit class DateTimeEx(dateTime: DateTime) {
     def toTimestamp = new Timestamp(dateTime.getMillis)
 
-    def toSprayDateTime = SprayDateTime(dateTime.getMillis)
+//    def toSprayDateTime = SprayDateTime(dateTime.getMillis)
 
     def truncDay() = dateTime.withMillisOfDay(0)
   }

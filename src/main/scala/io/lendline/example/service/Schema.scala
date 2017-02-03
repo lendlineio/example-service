@@ -1,20 +1,44 @@
 package io.lendline.example.service
 
-import slick.backend.DatabaseConfig
 import slick.driver.JdbcProfile
-import java.sql.Timestamp
+import org.joda.time._
+import com.github.tototoshi.slick.GenericJodaSupport
 
-class Schema(dc: DatabaseConfig[JdbcProfile]) {
-  import dc.driver.api._
+trait Profile {
+  val profile: JdbcProfile
+}
 
-  class ExampleTable(tag: Tag) extends Table[ExampleDataRow](tag, "users") {
-    def userId = column[String]("user_id", O.PrimaryKey)
-    def userInfo1 = column[Option[Int]]("user_info_1")
-    def userInfo2 = column[String]("user_info_2")
-    def userInfoTime = column[Timestamp]("user_info_time")
+trait Tables {
+  this: Profile =>
 
-    def * = (userId, userInfo1, userInfo2, userInfoTime) <>(ExampleDataRow.tupled, ExampleDataRow.unapply)
+  import profile.api._
+
+  object PortableJodaSupport extends GenericJodaSupport(profile)
+  import PortableJodaSupport._
+
+  class UserTable(tag: Tag) extends Table[User](tag, "users") {
+    def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
+    def name = column[String]("name")
+    def updated = column[DateTime]("updated")
+
+    def * = (name, updated, id) <>(User.tupled, User.unapply)
   }
 
-  val exampleTable = TableQuery[ExampleTable]
+  lazy val userTable = TableQuery[UserTable]
+
+  class MessageTable(tag: Tag) extends Table[Message](tag, "messages") {
+    def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
+    def message = column[String]("message")
+    def userId = column[Long]("user_id")
+    def updated = column[DateTime]("updated")
+
+    def user = foreignKey("user_fk", userId, userTable)(_.id)
+    def * = (message, userId, updated, id) <>(Message.tupled, Message.unapply)
+  }
+
+  lazy val messageTable = TableQuery[MessageTable]
+
+//  lazy val ddl      = userTable.schema ++ messageTable.schema
 }
+
+case class Schema(val profile: JdbcProfile) extends Tables with Profile

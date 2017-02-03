@@ -1,7 +1,7 @@
 package io.lendline.example.service
 
 import akka.http.scaladsl.server.Directives._
-import akka.http.scaladsl.server.PathMatchers.Segment
+import akka.http.scaladsl.server.PathMatchers.IntNumber
 import org.slf4j.LoggerFactory
 import slick.backend.DatabaseConfig
 import slick.driver.JdbcProfile
@@ -26,11 +26,11 @@ object Routes {
     } ~
       pathPrefix("GetData") {
         get {
-          path(Segment) { userId: String =>
+          path(LongNumber) { userId: Long =>
             pathEnd {
               complete {
                 log.info(s"Get Data for $userId")
-                val r = da.findData(userId)
+                val r = da.User.get(userId)
                 "GetData " + userId
               }
             }

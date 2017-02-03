@@ -14,13 +14,14 @@ lazy val root = (project in file(".")).
         "com.typesafe.akka"     %% "akka-slf4j"             % "2.4.16",
 
         "joda-time"             % "joda-time"               % "2.9.2",
-
+        "com.github.tototoshi"  % "slick-joda-mapper_2.11"  % "2.2.0",
         "com.typesafe.slick"    %% "slick"                  % slickV,
         "com.typesafe.slick"    %% "slick-codegen"          % slickV,
 
         "org.postgresql"        % "postgresql"              % "9.4.1207.jre7",
-        "org.slf4j"             % "slf4j-simple"            % "1.7.22"
-        //        "org.scalatest"       %%  "scalatest"          % "2.2.6" % "test",
+        "com.h2database"        % "h2"                      % "1.4.193",
+        "org.slf4j"             % "slf4j-simple"            % "1.7.22",
+        "org.scalatest"         %% "scalatest"              % "2.2.6" % "test"
       )
   )
 

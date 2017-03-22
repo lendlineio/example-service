@@ -18,4 +18,8 @@ class Configuration() {
     val url: String = config.getString("ExampleRemoteServer.url")
   }
 
+  object http {
+    val host: String = config.getString("http.host")
+    val port: Int = config.getInt("http.port")
+  }
 }

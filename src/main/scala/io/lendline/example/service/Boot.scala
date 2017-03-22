@@ -18,7 +18,9 @@ object Boot {
 
     log.info("ExampleService started")
 
-    val bindingFuture = Http().bindAndHandle(Routes.getRoutes, "localhost", 8080)
+    val config = new Configuration()
+
+    val bindingFuture = Http().bindAndHandle(Routes.getRoutes, config.http.host, config.http.port)
 
     println(s"Server online at http://localhost:8080/\nPress RETURN to stop...")
     StdIn.readLine() // let it run until user presses return

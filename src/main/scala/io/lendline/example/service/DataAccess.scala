@@ -5,7 +5,6 @@ import slick.driver.JdbcProfile
 import org.slf4j.LoggerFactory
 
 import scala.concurrent.{ExecutionContextExecutor, Future}
-import scala.util.{Failure, Success}
 
 class DataAccess(dc: DatabaseConfig[JdbcProfile])(implicit val ec : ExecutionContextExecutor)
   extends Schema(dc.driver) {

@@ -6,6 +6,8 @@ import com.github.tototoshi.slick.GenericJodaSupport
 
 trait Profile {
   val profile: JdbcProfile
+
+  object PortableJodaSupport extends GenericJodaSupport(profile)
 }
 
 trait Tables {
@@ -13,7 +15,6 @@ trait Tables {
 
   import profile.api._
 
-  object PortableJodaSupport extends GenericJodaSupport(profile)
   import PortableJodaSupport._
 
   class UserTable(tag: Tag) extends Table[User](tag, "users") {
@@ -37,8 +38,6 @@ trait Tables {
   }
 
   lazy val messageTable = TableQuery[MessageTable]
-
-//  lazy val ddl      = userTable.schema ++ messageTable.schema
 }
 
 case class Schema(val profile: JdbcProfile) extends Tables with Profile

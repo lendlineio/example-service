@@ -1,5 +1,6 @@
 package io.lendline.example.service
 
+import akka.http.scaladsl.marshallers.sprayjson.SprayJsonSupport
 import org.joda.time.{DateTime, LocalDate}
 import org.joda.time.format.ISODateTimeFormat
 import spray.json._
@@ -14,7 +15,7 @@ case class Message(message: String,
                    updated: DateTime = DateTime.now(),
                    id: Long = 0)
 
-object JsonSerializeProtocol extends DefaultJsonProtocol {
+trait JsonSupport extends DefaultJsonProtocol with SprayJsonSupport {
   val dateTimeParser = ISODateTimeFormat.dateTimeParser()
   val localDateParser = ISODateTimeFormat.localDateParser()
 
@@ -36,5 +37,6 @@ object JsonSerializeProtocol extends DefaultJsonProtocol {
     }
   }
 
-  implicit val exampleDataRowFormatter = jsonFormat3(User)
+  implicit val userFormatter = jsonFormat3(User)
+  implicit val messageFormatter = jsonFormat4(Message)
 }

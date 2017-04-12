@@ -1,48 +1,25 @@
 package io.lendline.example.service
 
 import akka.http.scaladsl.server.Directives._
-import akka.http.scaladsl.server.PathMatchers.IntNumber
-import org.slf4j.LoggerFactory
-import slick.backend.DatabaseConfig
-import slick.driver.JdbcProfile
+import com.typesafe.scalalogging.StrictLogging
 
-object Routes {
-  private val log = LoggerFactory.getLogger("Routes")
-
-  import scala.concurrent.ExecutionContext.Implicits.global
-
-  private val dc = DatabaseConfig.forConfig[JdbcProfile]("postgersql_dc")
-  private val da = new DataAccess(dc)
-
+trait Routes extends UserRoutes with StrictLogging with JsonSupport {
   val getRoutes =
     path("echo" / Segment) { s =>
       get {
         complete {
-          log.info(s"Echo $s")
+          logger.info(s"Echo $s")
           s
         }
       }
 
     } ~
-      pathPrefix("GetData") {
-        get {
-          path(LongNumber) { userId: Long =>
-            pathEnd {
-              complete {
-                log.info(s"Get Data for $userId")
-                val r = da.User.get(userId)
-                "GetData " + userId
-              }
-            }
-          }
-        }
-      } ~
       pathPrefix("SaveData") {
         pathEnd {
           post {
             formFields('userId, 'info) { (userId: String, info: String) =>
               complete {
-                log.info(s"Start Verification $userId $info")
+                logger.info(s"Start Verification $userId $info")
 
                 //                  da.updateData(ExampleDataRow(userId, Some(123), info, DateTime.now().toTimestamp))
                 "SaveData " + userId + " " + info
@@ -50,5 +27,5 @@ object Routes {
             }
           }
         }
-      }
+      } ~ userRoutes
 }

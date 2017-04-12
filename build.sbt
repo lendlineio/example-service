@@ -12,6 +12,7 @@ lazy val root = (project in file(".")).
         "com.typesafe.akka"     %% "akka-http"              % akkaV,
         "com.typesafe.akka"     %% "akka-http-spray-json"   % akkaV,
         "com.typesafe.akka"     %% "akka-slf4j"             % "2.4.16",
+        "com.typesafe.akka"     %% "akka-http-testkit"      % "2.4.8",
 
         "joda-time"             % "joda-time"               % "2.9.2",
         "org.joda"              % "joda-convert"            % "1.8.1",

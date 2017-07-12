@@ -1,7 +1,7 @@
 package io.lendline.example.service
 
-import slick.backend.DatabaseConfig
-import slick.driver.JdbcProfile
+import slick.basic.DatabaseConfig
+import slick.jdbc.JdbcProfile
 import slick.jdbc.JdbcBackend.DatabaseDef
 import scala.concurrent.Future
 
@@ -9,7 +9,7 @@ class MessageDao (val db: DatabaseDef, val profile: JdbcProfile)
   extends Profile with Tables with BasicDao[Message] {
 
   def this(dc: DatabaseConfig[JdbcProfile]){
-    this(dc.db.asInstanceOf[DatabaseDef], dc.driver)
+    this(dc.db.asInstanceOf[DatabaseDef], dc.profile)
   }
 
   import profile.api._

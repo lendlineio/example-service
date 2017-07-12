@@ -9,4 +9,8 @@ class UserService (userDao: UserDao)(implicit ec: ExecutionContext, m : ActorMat
   def getUser(userId: Long): Future[Option[User]] = {
     userDao.get(userId)
   }
+
+  def addUser(user: User): Future[Long] = {
+    userDao.add(user)
+  }
 }

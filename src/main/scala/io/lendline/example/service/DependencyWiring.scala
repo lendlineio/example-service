@@ -3,8 +3,8 @@ package io.lendline.example.service
 
 import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
-import slick.backend.DatabaseConfig
-import slick.driver.JdbcProfile
+import slick.basic.DatabaseConfig
+import slick.jdbc.JdbcProfile
 
 import scala.concurrent.ExecutionContext
 
@@ -13,7 +13,7 @@ trait DependencyWiring {
   val databaseConfig: DatabaseConfig[JdbcProfile]
 
   implicit val materializer: ActorMaterializer
-  implicit lazy val ec: ExecutionContext = scala.concurrent.ExecutionContext.Implicits.global
+  implicit val ec: ExecutionContext
 
   lazy val userDao = new UserDao(databaseConfig)
   lazy val messageDao = new MessageDao(databaseConfig)

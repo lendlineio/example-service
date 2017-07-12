@@ -17,7 +17,7 @@ object Util {
 
 //    def toSprayDateTime = SprayDateTime(dateTime.getMillis)
 
-    def truncDay() = dateTime.withMillisOfDay(0)
+    def truncDay(): DateTime = dateTime.withMillisOfDay(0)
   }
 
   def parseDateTime(s: String): DateTime = ISODateTimeFormat.dateTimeParser().parseDateTime(s)

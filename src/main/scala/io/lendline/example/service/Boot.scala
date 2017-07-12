@@ -4,10 +4,10 @@ import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.stream.ActorMaterializer
 import com.typesafe.scalalogging.StrictLogging
-import slick.backend.DatabaseConfig
-import slick.driver.JdbcProfile
+import slick.jdbc.JdbcProfile
+import slick.basic.DatabaseConfig
 
-import scala.concurrent.Await
+import scala.concurrent.{Await, ExecutionContext}
 import scala.concurrent.duration._
 import scala.io.StdIn
 
@@ -23,8 +23,9 @@ object Boot extends StrictLogging {
     val config = new Configuration()
 
     val modules = new DependencyWiring with Routes {
-      lazy val system = _system
-      implicit lazy val materializer = _materializer
+      lazy val system: ActorSystem = _system
+      implicit lazy val materializer: ActorMaterializer = _materializer
+      implicit lazy val ec: ExecutionContext = scala.concurrent.ExecutionContext.Implicits.global
 
       lazy val databaseConfig: DatabaseConfig[JdbcProfile] = DatabaseConfig.forConfig[JdbcProfile]("h2_dc")
     }

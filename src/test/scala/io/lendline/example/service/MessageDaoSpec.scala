@@ -1,21 +1,25 @@
 package io.lendline.example.service
 
+import slick.jdbc.JdbcBackend
 import slick.jdbc.JdbcBackend.Database
+
 import scala.concurrent.ExecutionContext
 
 class MessageDaoSpec extends FlatSpecWithDB {
   implicit lazy val ec: ExecutionContext = scala.concurrent.ExecutionContext.Implicits.global
 
-  val db = Database.forURL("jdbc:h2:mem:MessageDaoSpec;DB_CLOSE_DELAY=-1", driver="org.h2.Driver")
-  val messageDao = new MessageDao(db, slick.driver.H2Driver)
-  val userDao = new UserDao(db, slick.driver.H2Driver)
+  val db: JdbcBackend.DatabaseDef =
+    Database.forURL("jdbc:h2:mem:MessageDaoSpec;DB_CLOSE_DELAY=-1", driver="org.h2.Driver")
 
-  override def createTables() = {
+  val messageDao: MessageDao = new MessageDao(db, slick.jdbc.H2Profile)
+  val userDao: UserDao = new UserDao(db, slick.jdbc.H2Profile)
+
+  override def createTables() : Unit = {
     userDao.create().futureValue
     messageDao.create().futureValue
   }
 
-  override def dropTables() = {
+  override def dropTables() : Unit = {
     messageDao.drop().futureValue
     userDao.drop().futureValue
   }

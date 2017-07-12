@@ -1,8 +1,9 @@
 package io.lendline.example.service
 
-import slick.driver.JdbcProfile
+import slick.jdbc.JdbcProfile
 import org.joda.time._
 import com.github.tototoshi.slick.GenericJodaSupport
+import slick.lifted.{ForeignKeyQuery, ProvenShape}
 
 trait Profile {
   val profile: JdbcProfile
@@ -18,26 +19,26 @@ trait Tables {
   import PortableJodaSupport._
 
   class UserTable(tag: Tag) extends Table[User](tag, "users") {
-    def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
-    def name = column[String]("name")
-    def updated = column[DateTime]("updated")
+    def id: Rep[Long] = column[Long]("id", O.PrimaryKey, O.AutoInc)
+    def name: Rep[String] = column[String]("name")
+    def updated: Rep[DateTime] = column[DateTime]("updated")
 
-    def * = (name, updated, id) <>(User.tupled, User.unapply)
+    def * : ProvenShape[User] = (name, updated, id) <>(User.tupled, User.unapply)
   }
 
-  lazy val userTable = TableQuery[UserTable]
+  lazy val userTable: TableQuery[UserTable] = TableQuery[UserTable]
 
   class MessageTable(tag: Tag) extends Table[Message](tag, "messages") {
-    def id = column[Long]("id", O.PrimaryKey, O.AutoInc)
-    def message = column[String]("message")
-    def userId = column[Long]("user_id")
-    def updated = column[DateTime]("updated")
+    def id: Rep[Long] = column[Long]("id", O.PrimaryKey, O.AutoInc)
+    def message: Rep[String] = column[String]("message")
+    def userId: Rep[Long] = column[Long]("user_id")
+    def updated: Rep[DateTime] = column[DateTime]("updated")
 
-    def user = foreignKey("user_fk", userId, userTable)(_.id)
-    def * = (message, userId, updated, id) <>(Message.tupled, Message.unapply)
+    def user: ForeignKeyQuery[UserTable, User] = foreignKey("user_fk", userId, userTable)(_.id)
+    def * : ProvenShape[Message] = (message, userId, updated, id) <>(Message.tupled, Message.unapply)
   }
 
-  lazy val messageTable = TableQuery[MessageTable]
+  lazy val messageTable: TableQuery[MessageTable] = TableQuery[MessageTable]
 }
 
-case class Schema(val profile: JdbcProfile) extends Tables with Profile
+//case class Schema(val profile: JdbcProfile) extends Tables with Profile

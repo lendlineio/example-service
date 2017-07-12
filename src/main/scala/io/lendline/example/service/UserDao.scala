@@ -1,8 +1,8 @@
 package io.lendline.example.service
 
 import com.typesafe.scalalogging.StrictLogging
-import slick.backend.DatabaseConfig
-import slick.driver.JdbcProfile
+import slick.basic.DatabaseConfig
+import slick.jdbc.JdbcProfile
 import slick.jdbc.JdbcBackend.DatabaseDef
 
 import scala.concurrent.Future
@@ -11,7 +11,7 @@ class UserDao(val db: DatabaseDef, val profile: JdbcProfile)
   extends Profile with Tables with BasicDao[User] with StrictLogging {
 
   def this(dc: DatabaseConfig[JdbcProfile]){
-    this(dc.db.asInstanceOf[DatabaseDef], dc.driver)
+    this(dc.db.asInstanceOf[DatabaseDef], dc.profile)
   }
 
   import profile.api._
@@ -21,7 +21,7 @@ class UserDao(val db: DatabaseDef, val profile: JdbcProfile)
   }
 
   def get(userId: Long) : Future[Option[User]] = {
-    logger.info(s"UserDao.get userId: ${userId}")
+    logger.info(s"UserDao.get userId: $userId")
     db.run(userTable.filter(_.id === userId).result.headOption)
   }
 

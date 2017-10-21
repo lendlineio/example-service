@@ -15,8 +15,8 @@ if you run
 you should get `Test` back in the response
 
 to POST (ADD) user:
-
-`curl -vvv -H "Content-Type: application/json" -X POST -d '{"name":"Yulia","id":0, "updated": "2017-07-11T20:46:38.858-04:00"}' http://localhost:8090/api/v1/user`
+ 
+ `curl -vvv -H "Content-Type: application/json" -X POST -d '{"name":"Yulia","id":0, "updated": "2017-07-11T20:46:38.858-04:00"}' http://localhost:8090/api/v1/user`
 
 to GET user:
 

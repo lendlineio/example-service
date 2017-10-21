@@ -17,7 +17,7 @@ lazy val root = (project in file(".")).
         "joda-time"             % "joda-time"               % "2.9.2",
         "org.joda"              % "joda-convert"            % "1.8.1",
         "com.github.tototoshi"  % "slick-joda-mapper_2.12"  % "2.3.0",
-        "com.typesafe.slick"    % "slick_2.12"               % "3.2.0",
+        "com.typesafe.slick"    % "slick_2.12"              % slickV,
 
         "org.postgresql"        % "postgresql"              % "9.4.1207.jre7",
         "com.h2database"        % "h2"                      % "1.4.193",

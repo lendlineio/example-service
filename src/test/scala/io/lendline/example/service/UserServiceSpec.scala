@@ -27,6 +27,6 @@ class UserServiceSpec extends FlatSpecWithDB {
 
   "UserService.getUser" should "get user by userId" in {
     val result = userService.getUser(-1L).futureValue
-    assert(result.size === 0)
+    result shouldBe (None)
   }
 }

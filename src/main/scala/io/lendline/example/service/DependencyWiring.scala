@@ -10,13 +10,12 @@ import scala.concurrent.ExecutionContext
 
 trait DependencyWiring {
   def system: ActorSystem
-  val databaseConfig: DatabaseConfig[JdbcProfile]
+  def databaseConfig: DatabaseConfig[JdbcProfile]
 
   implicit val materializer: ActorMaterializer
   implicit val ec: ExecutionContext
 
   lazy val userDao = new UserDao(databaseConfig)
   lazy val messageDao = new MessageDao(databaseConfig)
-
   lazy val userService = new UserService(userDao)
 }

@@ -10,7 +10,7 @@ An example restful service based on AKKA-HTTP and slick
 
 if you run
 
-`curl http://localhost:8090/echo/Test`
+`curl http://localhost:8090/api/v1/echo/Test`
 
 you should get `Test` back in the response
 

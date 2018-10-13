@@ -1,4 +1,4 @@
-package io.lendline.example.service
+//package io.lendline.example.service
 
 //import org.scalatest.FlatSpec
 //import spray.http.StatusCodes._

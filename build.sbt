@@ -10,9 +10,10 @@ lazy val root = (project in file(".")).
     scalacOptions ++= Seq("-unchecked", "-deprecation", "-encoding", "utf8"),
     libraryDependencies ++= Seq(
       "com.typesafe.akka"     %% "akka-http"              % akkaV,
+      "com.typesafe.akka"     %  "akka-http-testkit_2.12" % akkaV % "test",
       "com.typesafe.akka"     %% "akka-http-spray-json"   % akkaV,
-      "com.typesafe.akka"     %% "akka-slf4j"             % "2.5.13",
-      "com.typesafe.akka"     % "akka-http-testkit_2.12"  % akkaV % "test",
+      "com.typesafe.akka"     %% "akka-slf4j"             % "2.4.16",
+
 
       "com.typesafe.scala-logging" %% "scala-logging"     % "3.9.0",
 

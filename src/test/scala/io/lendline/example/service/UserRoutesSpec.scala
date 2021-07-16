@@ -4,6 +4,8 @@ import slick.jdbc.JdbcBackend.Database
 import akka.http.scaladsl.model.{ContentTypes, HttpEntity, StatusCodes}
 import akka.http.scaladsl.testkit.ScalatestRouteTest
 import akka.http.scaladsl.server._
+import org.scalatest.matchers.must.Matchers.be
+import org.scalatest.matchers.should.Matchers.convertToAnyShouldWrapper
 import slick.jdbc.JdbcBackend
 
 import scala.concurrent.ExecutionContext

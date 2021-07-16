@@ -13,7 +13,7 @@ trait UserRoutes extends JsonSupport with StrictLogging {
   val userRoutes: Route =
     path("user") {
       get {
-        parameters('userid.as[Long]) { userId: Long =>
+        parameters(Symbol("userid").as[Long]) { userId: Long =>
           pathEnd {
             complete {
               logger.info(s"Get Data for $userId")

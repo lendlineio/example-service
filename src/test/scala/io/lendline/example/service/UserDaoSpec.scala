@@ -1,5 +1,7 @@
 package io.lendline.example.service
 
+import org.scalatest.matchers.must.Matchers.be
+import org.scalatest.matchers.should.Matchers.convertToAnyShouldWrapper
 import slick.jdbc.JdbcBackend
 import slick.jdbc.JdbcBackend.Database
 

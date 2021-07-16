@@ -4,6 +4,8 @@ import slick.jdbc.JdbcBackend
 import slick.jdbc.JdbcBackend.Database
 
 import scala.concurrent.ExecutionContext
+import org.scalatest.matchers.must.Matchers.be
+import org.scalatest.matchers.should.Matchers.convertToAnyShouldWrapper
 
 class MessageDaoSpec extends FlatSpecWithDB {
   implicit lazy val ec: ExecutionContext = scala.concurrent.ExecutionContext.Implicits.global

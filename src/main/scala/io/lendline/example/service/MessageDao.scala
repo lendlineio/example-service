@@ -8,7 +8,7 @@ import scala.concurrent.Future
 class MessageDao (val db: DatabaseDef, val profile: JdbcProfile)
   extends Profile with Tables with BasicDao[Message] {
 
-  def this(dc: DatabaseConfig[JdbcProfile]){
+  def this(dc: DatabaseConfig[JdbcProfile]) = {
     this(dc.db.asInstanceOf[DatabaseDef], dc.profile)
   }
 

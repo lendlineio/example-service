@@ -1,9 +1,8 @@
 package io.lendline.example.service
 
-import org.scalatest.FlatSpec
-import org.scalatest.Matchers._
+import org.scalatest.flatspec.AnyFlatSpec
 
-class ConfigTest extends FlatSpec {
+class ConfigTest extends AnyFlatSpec {
 
   "Config Test" should "pass" in {
     val config = new Configuration()

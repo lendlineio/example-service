@@ -2,7 +2,6 @@ package io.lendline.example.service
 
 
 import akka.actor.ActorSystem
-import akka.stream.ActorMaterializer
 import slick.basic.DatabaseConfig
 import slick.jdbc.JdbcProfile
 
@@ -12,7 +11,6 @@ trait DependencyWiring {
   def system: ActorSystem
   def databaseConfig: DatabaseConfig[JdbcProfile]
 
-  implicit val materializer: ActorMaterializer
   implicit val ec: ExecutionContext
 
   lazy val userDao = new UserDao(databaseConfig)

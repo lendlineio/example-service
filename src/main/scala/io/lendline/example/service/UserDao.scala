@@ -10,7 +10,7 @@ import scala.concurrent.Future
 class UserDao(val db: DatabaseDef, val profile: JdbcProfile)
   extends Profile with Tables with BasicDao[User] with StrictLogging {
 
-  def this(dc: DatabaseConfig[JdbcProfile]){
+  def this(dc: DatabaseConfig[JdbcProfile]) = {
     this(dc.db.asInstanceOf[DatabaseDef], dc.profile)
   }
 

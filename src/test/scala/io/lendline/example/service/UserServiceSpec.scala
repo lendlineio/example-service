@@ -1,7 +1,7 @@
 package io.lendline.example.service
 
 import akka.actor.ActorSystem
-import akka.stream.ActorMaterializer
+import org.scalatest.matchers.should.Matchers.convertToAnyShouldWrapper
 import slick.jdbc.JdbcBackend
 import slick.jdbc.JdbcBackend.Database
 
@@ -11,7 +11,6 @@ import scala.concurrent.ExecutionContext
 class UserServiceSpec extends FlatSpecWithDB {
   implicit lazy val ec: ExecutionContext = scala.concurrent.ExecutionContext.Implicits.global
   implicit val _system = ActorSystem("example-service")
-  implicit val _materializer = ActorMaterializer()
 
   val db: JdbcBackend.DatabaseDef = Database.forURL("jdbc:h2:mem:UserServiceSpec;DB_CLOSE_DELAY=-1", driver="org.h2.Driver")
   val userDao = new UserDao(db, slick.jdbc.H2Profile)

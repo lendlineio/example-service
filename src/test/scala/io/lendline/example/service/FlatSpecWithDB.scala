@@ -2,11 +2,12 @@ package io.lendline.example.service
 
 
 import com.typesafe.scalalogging.StrictLogging
-import org.scalatest.{BeforeAndAfter, FlatSpec, Matchers}
+import org.scalatest.BeforeAndAfter
 import org.scalatest.concurrent.{IntegrationPatience, ScalaFutures}
+import org.scalatest.flatspec.AnyFlatSpec
 
 
-abstract class FlatSpecWithDB extends FlatSpec with Matchers with StrictLogging with ScalaFutures
+abstract class FlatSpecWithDB extends AnyFlatSpec with StrictLogging with ScalaFutures
   with IntegrationPatience with BeforeAndAfter {
 
   def createTables(): Unit
